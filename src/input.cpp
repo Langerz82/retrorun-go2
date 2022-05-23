@@ -394,6 +394,11 @@ int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigne
         // Map thumbstick to dpad (force to enable the left analog stick mapping to it the DPAD)
         const float TRIM = 0.35f;
         go2_thumb_t thumb = go2_input_state_thumbstick_get(gamepadState, Go2InputThumbstick_Left);
+        if (Retrorun_Core == RETRORUN_CORE_FLYCAST)
+        {
+            thumb.x *= -1.0f;
+            thumb.y *= -1.0f;
+        }
 
         if (thumb.y < -TRIM)
             go2_input_state_button_set(gamepadState, Go2InputButton_DPadUp, ButtonState_Pressed);
@@ -653,6 +658,11 @@ int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigne
             }
 
             go2_thumb_t thumb = go2_input_state_thumbstick_get(gamepadState, Go2InputThumbstick_Left);
+            if (Retrorun_Core == RETRORUN_CORE_FLYCAST)
+            {
+                thumb.x *= -1.0f;
+                thumb.y *= -1.0f;
+            }
 
             if (thumb.x > 1.0f)
                 thumb.x = 1.0f;
