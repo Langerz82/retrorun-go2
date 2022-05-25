@@ -536,6 +536,11 @@ static void core_load_game(const char *filename)
 {
     struct retro_system_timing timing = {
         60.0f, 10000.0f};
+    if (runLoopAtfps > 0)
+    {
+      timing = {runLoopAtfps, 10000.0f * (60.0f / runLoopAtFps)};
+    }
+
     struct retro_game_geometry geom = {
         100, 100, 100, 100, 1.0f};
 
@@ -1009,6 +1014,20 @@ void initConfig()
             printf("-RR- Info: retrorun_adaptive_fps parameter not found in retrorun.cfg using default value (%s).\n", adaptiveFps ? "true" : "false");
         }
 
+        try
+        {
+            const std::string &tflValue = conf_map.at("retrorun_loop_fps");
+            if (!tflValue.empty())
+            {
+                runLoopAtfps = stoi(tflValue);
+                printf("-RR- retrorun_loop_fps: %d.\n", runLoopAtfps);
+            }
+        }
+        catch (...)
+        {
+            printf("-RR- Info: retrorun_loop_fps parameter not found in retrorun.cfg using default value (%d).\n", runLoopAtfps);
+        }
+
         printf("-RR- Configuration initialized.\n");
     }
 
@@ -1233,11 +1252,17 @@ int main(int argc, char *argv[])
             g_retro.retro_reset();
         }
 
-        if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
+        if ((runLoopAtfps > 0 && sleepSecs > 0) && !input_ffwd_requested)
+        {
+            //printf("-RR- waiting!\n");
+            std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)(60 * sleepSecs * 1e9 / runLoopAtfps)));
+        }
+        else if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
         {
             //printf("-RR- waiting!\n");
             std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)(sleepSecs * 1e9)));
         }
+
         prevClock = nextClock;
         totClock = std::chrono::high_resolution_clock::now();
         if (true) // opt_show_fps || input_fps_requested)

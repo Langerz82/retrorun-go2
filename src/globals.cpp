@@ -64,6 +64,7 @@ bool adaptiveFps = false;
 
 bool runLoopAt60fps= true;
 
+int runLoopAtfps = 0;
 
 bool isFlycast(){
     return coreName == "Flycast";

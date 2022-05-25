@@ -108,3 +108,4 @@ extern int waitMSecForAudioInAnotherThread;
 extern bool enableSwitchAudioSync;
 
 extern bool runLoopAt60fps;
+extern int runLoopAtfps;
