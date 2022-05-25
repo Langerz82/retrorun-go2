@@ -536,10 +536,10 @@ static void core_load_game(const char *filename)
 {
     struct retro_system_timing timing = {
         60.0f, 10000.0f};
-    if (runLoopAtfps > 0)
+    /*if (runLoopAtfps > 0)
     {
       timing = {runLoopAtfps, 10000.0f * runLoopAtfps/60.0f};
-    }
+    }*/
 
     struct retro_game_geometry geom = {
         100, 100, 100, 100, 1.0f};
