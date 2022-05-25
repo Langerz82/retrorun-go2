@@ -538,7 +538,7 @@ static void core_load_game(const char *filename)
         60.0f, 10000.0f};
     if (runLoopAtfps > 0)
     {
-      timing = {runLoopAtfps, 10000.0f * (60.0f / runLoopAtFps)};
+      timing = {runLoopAtfps, 10000.0f};
     }
 
     struct retro_game_geometry geom = {
@@ -1255,7 +1255,7 @@ int main(int argc, char *argv[])
         if ((runLoopAtfps > 0 && sleepSecs > 0) && !input_ffwd_requested)
         {
             //printf("-RR- waiting!\n");
-            std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)(60 * sleepSecs * 1e9 / runLoopAtfps)));
+            std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)(60 / runLoopAtfps * sleepSecs * 1e9)));
         }
         else if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
         {
