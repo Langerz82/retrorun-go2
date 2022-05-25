@@ -1255,7 +1255,7 @@ int main(int argc, char *argv[])
         if ((runLoopAtfps > 0 && sleepSecs > 0) && !input_ffwd_requested)
         {
             //printf("-RR- waiting!\n");
-            std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)((60.0f / runLoopAtfps) * 60 * sleepSecs * 1e9)));
+            std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)((60.0f / runLoopAtfps) * sleepSecs * 1e9)));
         }
         else if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
         {
