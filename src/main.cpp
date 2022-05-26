@@ -535,7 +535,7 @@ static void core_load(const char *sofile)
 static void core_load_game(const char *filename)
 {
     struct retro_system_timing timing = {
-        30.0f, 5000.0f};
+        30.0f, 10000.0f};
     /*if (runLoopAtfps > 0)
     {
       timing = {runLoopAtfps, 10000.0f * runLoopAtfps/60.0f};
