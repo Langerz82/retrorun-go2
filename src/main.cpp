@@ -535,7 +535,7 @@ static void core_load(const char *sofile)
 static void core_load_game(const char *filename)
 {
     struct retro_system_timing timing = {
-        60.0f, 10000.0f};
+        30.0f, 5000.0f};
     /*if (runLoopAtfps > 0)
     {
       timing = {runLoopAtfps, 10000.0f * runLoopAtfps/60.0f};
@@ -1252,12 +1252,12 @@ int main(int argc, char *argv[])
             g_retro.retro_reset();
         }
 
-        if ((runLoopAtfps > 0 && sleepSecs > 0) && !input_ffwd_requested)
+        /*if ((runLoopAtfps > 0 && sleepSecs > 0) && !input_ffwd_requested)
         {
             //printf("-RR- waiting!\n");
             std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)((60.0f / runLoopAtfps) * sleepSecs * 1e9)));
         }
-        else if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
+        else*/ if ((runLoopAt60fps && sleepSecs > 0) && !input_ffwd_requested)
         {
             //printf("-RR- waiting!\n");
             std::this_thread::sleep_for(std::chrono::nanoseconds((int64_t)(sleepSecs * 1e9)));
